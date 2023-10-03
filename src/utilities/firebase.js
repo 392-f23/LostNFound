@@ -1,6 +1,8 @@
 // Import the functions you need from the SDKs you need
+import { useCallback, useEffect, useState } from 'react';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getDatabase, onValue, ref, update, connectDatabaseEmulator } from 'firebase/database';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -17,5 +19,37 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const firebase = initializeApp(firebaseConfig);
+const database = getDatabase(firebase);
+
+export const useDbData = (path) => {
+    const [data, setData] = useState();
+    const [error, setError] = useState(null);
+  
+    useEffect(() => (
+      onValue(ref(database, path), (snapshot) => {
+       setData( snapshot.val() );
+      }, (error) => {
+        setError(error);
+      })
+    ), [ path ]);
+  
+    return [ data, error ];
+};
+  
+const makeResult = (error) => {
+    const timestamp = Date.now();
+    const message = error?.message || `Updated: ${new Date(timestamp).toLocaleString()}`;
+    return { timestamp, error, message };
+};
+  
+export const useDbUpdate = (path) => {
+    const [result, setResult] = useState();
+    const updateData = useCallback((value) => {
+        update(ref(database, path), value)
+        .then(() => setResult(makeResult()))
+        .catch((error) => setResult(makeResult(error)))
+    }, [database, path]);
+
+    return [updateData, result];
+};

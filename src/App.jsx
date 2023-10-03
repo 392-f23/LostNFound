@@ -1,9 +1,18 @@
-import { useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+
+import { useDbData } from "./utilities/firebase";
 
 const App = () => {
   const [count, setCount] = useState(0);
+
+  const [data, error] = useDbData("/");
+  if (error) return <h1>Error loading data</h1>;
+  if (data === undefined) return <h1>Loading data...</h1>;
+  if (!data) return <h1>No data found</h1>;
+
+  console.log("data", data);
 
   return (
     <div className="App">
@@ -11,12 +20,13 @@ const App = () => {
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello Vite + React!</p>
         <p>
-          <button onClick={() => setCount(count => count + 1)}>
+          <button onClick={() => setCount((count) => count + 1)}>
             count is: {count}
           </button>
         </p>
         <p>
-          Edit <code>App.jsx</code> and save to test hot module replacement (HMR).
+          Edit <code>App.jsx</code> and save to test hot module replacement
+          (HMR).
         </p>
         <p>
           <a
@@ -27,7 +37,7 @@ const App = () => {
           >
             Learn React
           </a>
-          {' | '}
+          {" | "}
           <a
             className="App-link"
             href="https://vitejs.dev/guide/features.html"
