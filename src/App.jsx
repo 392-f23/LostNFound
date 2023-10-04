@@ -1,53 +1,31 @@
-import { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import Menu from "./navigation/Menu";
+import FoundPage from "./pages/FoundPage";
+import LostPage from "./pages/LostPage";
+import PostPage from "./pages/PostPage";
 
 import { useDbData } from "./utilities/firebase";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const App = () => {
-  const [count, setCount] = useState(0);
-
   const [data, error] = useDbData("/");
   if (error) return <h1>Error loading data</h1>;
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
 
-  console.log("data", data);
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test hot module replacement
-          (HMR).
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {" | "}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+    <div className="main-app">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Menu />}>
+            <Route path="foundpage" element={<FoundPage />} />
+            <Route path="lostpage" element={<LostPage />} />
+            <Route path="postpage" element={<PostPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };
