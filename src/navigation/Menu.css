@@ -1,10 +1,10 @@
-header {
+/* header {
     position: fixed;
     text-align: center;
     margin: 0 auto;
     background: white;
     width: 100%;
-}
+} */
 
 h1 {
     margin-right: auto;
@@ -46,10 +46,10 @@ header nav a{
     font-weight: bold;
 }
 
-/* main {
+.main-part {
     min-height: calc(100vh-34px);
-    margin-top: 10px;
-} */
+    margin-top: 0px;
+}
 
 .main-layout {
     padding-bottom: 70px;

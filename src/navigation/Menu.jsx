@@ -15,7 +15,7 @@ const Menu = () => {
           </h1>
         </nav>
       </header>
-      <main>
+      <main className="main-part">
         <Outlet />
       </main>
       <footer>
