@@ -1,0 +1,90 @@
+header {
+    position: fixed;
+    text-align: center;
+    margin: 0 auto;
+    background: white;
+    width: 100%;
+}
+
+h1 {
+    margin-right: auto;
+    color: purple;
+}
+.vertical-text {
+    display: block;
+    font-size: 20px;
+    text-align: center;
+  }
+  
+  .nu-logo {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 10px;
+  }
+  
+  .nu-logo img {
+    width: 50px;
+    height: auto;
+  }
+.nav-bar {
+    padding: 20px;
+    border-radius: 6px;
+    background: rgb(194, 90, 177);
+}
+header nav {
+    display: flex;
+    gap: 10px;
+    justify-content: end;
+    max-width: 1200px;
+    margin-left: 11%;
+  }
+header nav a{
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 6px;
+    margin-right: auto; 
+    font-weight: bold;
+}
+
+/* main {
+    min-height: calc(100vh-34px);
+    margin-top: 10px;
+} */
+
+.main-layout {
+    padding-bottom: 70px;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding: 20px;
+    border-radius: 6px;
+     background: white;
+    height: 80px;
+}
+
+footer nav {
+    display: flex;
+    gap: 5px; 
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: min-content;
+  }
+
+footer nav a{
+    text-decoration: none;
+    padding: 10px;
+    background: rgb(206, 213, 218);
+    color: black;
+    border-radius: 50px;
+    margin-right: auto; 
+    font-weight: bold;
+    margin: 0 20px;
+}
+footer nav a.active {
+   background: rgb(154, 103, 154);
+}
