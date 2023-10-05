@@ -9,7 +9,7 @@ const Menu = () => {
           <h1 className="mx-auto" id="appName" data-cy="appName">
             <span className="vertical-text">Lost</span>
             <span className="nu-logo">
-              <img src="src/images/nu-logo.jpg" alt="N" />
+              <img src="/nu-logo.jpg" alt="N" />
             </span>
             <span className="vertical-text">Found</span>
           </h1>
