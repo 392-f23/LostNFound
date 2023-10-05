@@ -14,13 +14,14 @@ const App = () => {
   if (error) return <h1>Error loading data</h1>;
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
+  console.log("data", data);
 
   return (
     <div className="main-app">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Menu />}>
-            <Route path="foundpage" element={<FoundPage />} />
+            <Route path="/" element={<FoundPage posts={data.foundPosts} />} />
             <Route path="lostpage" element={<LostPage />} />
             <Route path="postpage" element={<PostPage />} />
           </Route>

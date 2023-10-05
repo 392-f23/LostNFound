@@ -1,114 +1,160 @@
 import React, { useState } from "react";
-import { useDbData } from "../utilities/firebase";
+import { useDbUpdate } from "../utilities/firebase";
+import { useNavigate } from "react-router-dom";
 
 const PostPage = () => {
-	const [formData, setFormData] = useState({
-		name: "", // mandatory
-		description: "", // mandatory
-		contactInfo: "", // mandatory,
-		location: "", // mandatory
-		image: "", // mandatory
-		lostOrFound: "lost",
-	});
-	const [selectedOption, setSelectedOption] = useState("lost");
+  const [formData, setFormData] = useState({
+    id: "",
+    name: "", // mandatory
+    description: "", // mandatory
+    contactInfo: "", // mandatory,
+    location: "", // mandatory
+    image: "", // mandatory
+    lostOrFound: "lost",
+  });
+  const [selectedOption, setSelectedOption] = useState("lost");
+  let post_id = Date.now();
+  const [updateFoundPosts, resultFoundPosts] = useDbUpdate(
+    `/foundPosts/${post_id}`
+  );
+  const [updateLostPosts, resultLostPosts] = useDbUpdate(
+    `/lostPosts/${post_id}`
+  );
+  let navigate = useNavigate();
 
-	const handleOptionChange = (e) => {
-		setSelectedOption(e.target.value);
-		handleInputChange(e);
-	};
+  const handleOptionChange = (e) => {
+    setSelectedOption(e.target.value);
+    handleInputChange(e);
+  };
 
-	const handleInputChange = (e) => {
-		const { name, value } = e.target;
-		setFormData({ ...formData, [name]: value });
-	};
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		// You can access the form data in formData and perform actions like sending it to a server or performing validation.
-		console.log("Form data submitted:", formData);
-	};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form data submitted:", formData);
+    if (formData.lostOrFound === "found") {
+      updateFoundPosts({
+        id: post_id,
+        name: formData.name,
+        description: formData.description,
+        contactInfo: formData.contactInfo,
+        location: formData.location,
+        image: formData.image,
+        lostOrFound: "found",
+      });
+      navigate("/");
+    } else if (formData.lostOrFound === "lost") {
+      updateLostPosts({
+        id: post_id,
+        name: formData.name,
+        description: formData.description,
+        contactInfo: formData.contactInfo,
+        location: formData.location,
+        image: formData.image,
+        lostOrFound: "lost",
+      });
+      navigate("/lostpage");
+    }
+  };
 
-	return (
-		<div>
-			<h2>Post Item</h2>
-			<form onSubmit={handleSubmit}>
-				<div>
-					<label htmlFor='name'>Name:</label>
-					<input
-						type='text'
-						id='name'
-						name='name'
-						value={formData.name}
-						onChange={handleInputChange}
-					/>
-				</div>
-				<div>
-					<label htmlFor='description'>Description:</label>
-					<input
-						type='description'
-						id='description'
-						name='description'
-						value={formData.email}
-						onChange={handleInputChange}
-					/>
-				</div>
-				<div>
-					<label htmlFor='contact-info'>Contact Info:</label>
-					<input
-						type='Contact Info'
-						id='Contact Info'
-						name='Contact Info'
-						// value={formData.Phone Number}
-						// onChange={handleInputChange}
-					/>
-				</div>
-				<div>
-					<label htmlFor='location'>Location Found/Lost:</label>
-					<textarea
-						id='location'
-						name='location'
-						// value={formData.message}
-						// onChange={handleInputChange}
-					></textarea>
-				</div>
-				<div>
-					<label htmlFor='location'>Image (optional)</label>
-					<textarea
-						id='image'
-						name='image'
-						// value={formData.message}
-						// onChange={handleInputChange}
-					></textarea>
-				</div>
-				<div>
-					<label>
-						<input
-							type='radio'
-							name='lostOrFound'
-							value='lost'
-							checked={selectedOption === "lost"}
-							onChange={handleOptionChange}
-						/>
-						Lost
-					</label>
-
-					<label>
-						<input
-							type='radio'
-							name='lostOrFound'
-							value='found'
-							checked={selectedOption === "found"}
-							onChange={handleOptionChange}
-						/>
-						Found
-					</label>
-				</div>
-				<div>
-					<button type='submit'>Submit</button>
-				</div>
-			</form>
-		</div>
-	);
+  return (
+    <div className="container">
+      <h2>Post Item</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="name">Name:</label>
+          <input
+            type="text"
+            className="form-control"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="description">Description:</label>
+          <input
+            type="text"
+            className="form-control"
+            id="description"
+            name="description"
+            value={formData.description}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="contactInfo">Contact Info:</label>
+          <input
+            type="text"
+            className="form-control"
+            id="contactInfo"
+            name="contactInfo"
+            value={formData.contactInfo}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="location">Location Found/Lost:</label>
+          <textarea
+            className="form-control"
+            id="location"
+            name="location"
+            value={formData.location}
+            onChange={handleInputChange}
+            required
+          ></textarea>
+        </div>
+        <div className="form-group">
+          <label htmlFor="image">Image (optional):</label>
+          <input
+            type="text"
+            className="form-control"
+            id="image"
+            name="image"
+            value={formData.image}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Lost or Found:</label>
+          <div>
+            <label className="radio-inline">
+              <input
+                type="radio"
+                name="lostOrFound"
+                value="lost"
+                checked={selectedOption === "lost"}
+                onChange={handleOptionChange}
+              />
+              Lost
+            </label>
+            <label className="radio-inline">
+              <input
+                type="radio"
+                name="lostOrFound"
+                value="found"
+                checked={selectedOption === "found"}
+                onChange={handleOptionChange}
+              />
+              Found
+            </label>
+          </div>
+        </div>
+        <div className="form-group">
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 };
 
 export default PostPage;

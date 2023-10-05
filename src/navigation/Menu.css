@@ -1,9 +1,22 @@
+header {
+    /* position: fixed; */
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: 0 auto;
+    background: white;
+    width: 100%;
+}
+
 /* header {
     position: fixed;
     text-align: center;
     margin: 0 auto;
     background: white;
     width: 100%;
+    z-index: 100; 
+    top: 0; 
 } */
 
 h1 {
@@ -52,8 +65,11 @@ header nav a{
 }
 
 .main-layout {
-    padding-bottom: 70px;
-}
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+  }
 
 footer {
     position: fixed;

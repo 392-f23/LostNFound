@@ -16,11 +16,13 @@ const Menu = () => {
         </nav>
       </header>
       <main className="main-part">
-        <Outlet />
+        <div style={{ marginTop: "0px" }}>
+          <Outlet />
+        </div>
       </main>
       <footer>
         <nav>
-          <NavLink to="foundpage" id="feedButton">
+          <NavLink to="/" id="feedButton">
             Found
           </NavLink>
           <NavLink to="lostpage">Lost</NavLink>
