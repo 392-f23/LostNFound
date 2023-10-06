@@ -22,9 +22,7 @@ const Menu = () => {
       </main>
       <footer>
         <nav>
-          <NavLink to="/" id="feedButton">
-            Found
-          </NavLink>
+          <NavLink to="/">Found</NavLink>
           <NavLink to="lostpage">Lost</NavLink>
           <NavLink to="postpage">Post</NavLink>
         </nav>
