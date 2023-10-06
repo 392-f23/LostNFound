@@ -62,7 +62,7 @@ const PostPage = () => {
 
   return (
     <div className="container">
-      <h2>Post Item</h2>
+      <h2>Post Lost or Found Item</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Name:</label>
