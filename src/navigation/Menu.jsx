@@ -1,5 +1,8 @@
 import { Outlet, NavLink } from "react-router-dom";
 import "./Menu.css";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const Menu = () => {
   return (
@@ -23,8 +26,12 @@ const Menu = () => {
       <footer>
         <nav>
           <NavLink to="/">Found</NavLink>
+          <Fab color="primary" aria-label="add">
+            <NavLink className="post-button" to="postpage">
+              <AddIcon />
+            </NavLink>
+          </Fab>
           <NavLink to="lostpage">Lost</NavLink>
-          <NavLink to="postpage">Post</NavLink>
         </nav>
       </footer>
     </div>
