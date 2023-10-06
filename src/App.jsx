@@ -22,7 +22,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Menu />}>
             <Route path="/" element={<FoundPage posts={data.foundPosts} />} />
-            <Route path="lostpage" element={<LostPage />} />
+            <Route path="lostpage" element={<LostPage posts={data.lostPosts} />} />
             <Route path="postpage" element={<PostPage />} />
           </Route>
         </Routes>
