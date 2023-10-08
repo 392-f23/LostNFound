@@ -3,6 +3,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase, onValue, ref, update, connectDatabaseEmulator } from 'firebase/database';
+import { getStorage, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,6 +23,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig);
 const database = getDatabase(firebase);
+const storage = getStorage(firebase);
 
 export const useDbData = (path) => {
     const [data, setData] = useState();

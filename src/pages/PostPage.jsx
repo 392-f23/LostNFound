@@ -9,7 +9,7 @@ const PostPage = () => {
     description: "", // mandatory
     contactInfo: "", // mandatory,
     location: "", // mandatory
-    image: "", // mandatory
+    image: "", // optional
     lostOrFound: "lost",
   });
   const [selectedOption, setSelectedOption] = useState("lost");
@@ -114,12 +114,12 @@ const PostPage = () => {
         <div className="form-group">
           <label htmlFor="image">Image (optional):</label>
           <input
-            type="text"
+            type="file"
             className="form-control"
             id="image"
             name="image"
             value={formData.image}
-            onChange={handleInputChange}
+            onChange={handleOptionChange}
           />
         </div>
         <div className="form-group">
