@@ -123,7 +123,7 @@ const PostPage = () => {
           />
         </div>
         <div className="form-group">
-          <label>Lost or Found:</label>
+          <br></br>
           <div>
             <label className="radio-inline">
               <input
@@ -132,6 +132,7 @@ const PostPage = () => {
                 value="lost"
                 checked={selectedOption === "lost"}
                 onChange={handleOptionChange}
+                className= "mx-2"
               />
               Lost
             </label>
@@ -142,13 +143,14 @@ const PostPage = () => {
                 value="found"
                 checked={selectedOption === "found"}
                 onChange={handleOptionChange}
+                className = "mx-2"  
               />
               Found
             </label>
           </div>
         </div>
         <div className="form-group">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary my-2">
             Submit
           </button>
         </div>

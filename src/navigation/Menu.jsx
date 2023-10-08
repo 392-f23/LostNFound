@@ -25,13 +25,14 @@ const Menu = () => {
 			</main>
 			<footer>
 				<nav>
-					<NavLink to='/'>Found</NavLink>
+					
+					<NavLink to='/' className = "fl-button" >Found</NavLink>
 					<Fab sx={{ flexBasis: 1 }} color='primary' aria-label='add'>
 						<NavLink className='post-button' to='postpage'>
 							<AddIcon />
 						</NavLink>
 					</Fab>
-					<NavLink to='lostpage'>Lost</NavLink>
+					<NavLink to='lostpage' className = "fl-button">Lost</NavLink>
 				</nav>
 			</footer>
 		</div>

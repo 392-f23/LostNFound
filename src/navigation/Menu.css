@@ -36,8 +36,8 @@ h1 {
   }
   
   .nu-logo img {
-    width: 50px;
-    height: auto;
+    width: auto;
+    height: 40px;
   }
 .nav-bar {
     padding: 20px;
@@ -74,10 +74,10 @@ footer {
     left: 0;
     bottom: 0;
     right: 0;
-    padding: 20px;
+    padding: 8px;
     border-radius: 6px;
-     background: white;
-    height: 80px;
+    background: white;
+    
 }
 
 footer nav {
@@ -85,8 +85,9 @@ footer nav {
     gap: 5px; 
     justify-content: space-between;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: auto;
     width: min-content;
+    align-items: center;
   }
 
 footer nav a{
@@ -102,4 +103,9 @@ footer nav a{
 }
 footer nav a.active {
    background: rgb(154, 103, 154);
+}
+
+.fl-button {
+  width: 7ch;
+  text-align: center;
 }
