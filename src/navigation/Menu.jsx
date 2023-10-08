@@ -26,7 +26,7 @@ const Menu = () => {
 			<footer>
 				<nav>
 					<NavLink to='/'>Found</NavLink>
-					<Fab color='primary' aria-label='add'>
+					<Fab sx={{ flexBasis: 1 }} color='primary' aria-label='add'>
 						<NavLink className='post-button' to='postpage'>
 							<AddIcon />
 						</NavLink>

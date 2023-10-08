@@ -97,7 +97,8 @@ footer nav a{
     border-radius: 50px;
     margin-right: auto; 
     font-weight: bold;
-    margin: 0 20px;
+    margin: auto 20px;
+    flex-basis: 2;
 }
 footer nav a.active {
    background: rgb(154, 103, 154);
