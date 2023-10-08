@@ -10,9 +10,8 @@
 }
 
 .card-container {
-    display: flex;
-    flex-wrap: wrap; /* Wrap cards to the next line when the container overflows */
-    gap: 15px; /* Adjust the gap between cards as needed */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
   
   .card {

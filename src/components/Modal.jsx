@@ -21,11 +21,11 @@ const Modal = ({ post, onClose }) => {
         <div className="modal-overlay">
             <div className="modal-content" ref={modalRef}>
                 <div className="modal-hdr">
-                    Post Information
+                    Item Details
                 </div>
                 <div className="description">
-                    {post.description}
-                    Found at {post.location}
+                    <b>{post.description} </b>                    
+                    found at {post.location}
                 </div>
                 <div className="contact-info">
                     Please contact {post.name} at {post.contactInfo}
