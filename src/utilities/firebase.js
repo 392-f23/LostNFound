@@ -4,6 +4,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase, onValue, ref, update, connectDatabaseEmulator } from 'firebase/database';
 import { getStorage, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -55,4 +56,31 @@ export const useDbUpdate = (path) => {
     }, [database, path]);
 
     return [updateData, result];
+};
+
+export const signInWithGoogle = () => {
+    signInWithPopup(getAuth(firebase), new GoogleAuthProvider());
+  };
+  
+  const firebaseSignOut = () => signOut(getAuth(firebase));
+  
+  export { firebaseSignOut as signOut };
+  
+export const useAuthState = () => {
+    const [user, setUser] = useState();
+    const [isNorthwesternStudent, setIsNorthwesternStudent] = useState(false);
+
+
+    useEffect(() => {
+        const result = onAuthStateChanged(getAuth(firebase), (user) => {
+            setIsNorthwesternStudent(false);
+            setUser(user);
+            if (user.email.endsWith("northwestern.edu")) {
+                setIsNorthwesternStudent(true);
+            }
+        });
+        return result;
+    }, []);
+
+    return [user, isNorthwesternStudent];
 };
