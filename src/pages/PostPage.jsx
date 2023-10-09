@@ -35,13 +35,8 @@ const PostPage = () => {
       // You can pass it to `handleInputChange` or handle it directly within this function 
       // Or, if you want to pass the file to `handleInputChange`:
       // Create a new event object with the necessary information
-      const newEvent = {
-        target: {
-          name: 'image',
-          value: file
-        }
-      };
-      handleInputChange(newEvent);
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: [value, file] });
     } else {
       console.error('Please select an image file.');
     }
@@ -138,7 +133,7 @@ const PostPage = () => {
             className="form-control"
             id="image"
             name="image"
-            value={formData.image}
+            value={formData.image[0]}
             onChange={handleImageChange}
           />
         </div>
