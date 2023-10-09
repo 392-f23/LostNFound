@@ -19,14 +19,18 @@ const PostCard = ({ post }) => {
                     <img src={post.image} alt={post.title} />
                 </div> */}
         <div className="description">{post.description}</div>
-        <div className="location">Location: {post.location}</div>
+        {/* <div className="location">Location: {post.location}</div> */}
         <div className="name">By: {post.name}</div>
       </div>
-      {isNorthwesternEmail ? (
-        <button className="button" onClick={toggleModal}>
-          More Information
-        </button>
-      ) : null}
+
+      <div>
+        {/* Image going to go here */}
+      </div>
+
+      <button disabled={!isNorthwesternEmail} className="button" onClick={toggleModal}>
+        More Information
+      </button>
+
       {showModal && <Modal post={post} onClose={toggleModal} />}
     </div>
   );

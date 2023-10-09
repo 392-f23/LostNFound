@@ -27,6 +27,26 @@ const PostPage = () => {
     handleInputChange(e);
   };
 
+  const handleImageChange = (e) => {
+    console.log(e.target.files[0]);
+    const file = e.target.files[0];  // Get the first selected file
+    if (file && file.type.match('image.*')) {  // Optional: check if the file is an image
+      // Now you have a reference to the selected image file
+      // You can pass it to `handleInputChange` or handle it directly within this function 
+      // Or, if you want to pass the file to `handleInputChange`:
+      // Create a new event object with the necessary information
+      const newEvent = {
+        target: {
+          name: 'image',
+          value: file
+        }
+      };
+      handleInputChange(newEvent);
+    } else {
+      console.error('Please select an image file.');
+    }
+  }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -119,7 +139,7 @@ const PostPage = () => {
             id="image"
             name="image"
             value={formData.image}
-            onChange={handleOptionChange}
+            onChange={handleImageChange}
           />
         </div>
         <div className="form-group">
