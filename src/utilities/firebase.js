@@ -1,10 +1,26 @@
 // Import the functions you need from the SDKs you need
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase, onValue, ref, update, connectDatabaseEmulator } from 'firebase/database';
-import { getStorage, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
+import {
+	getDatabase,
+	onValue,
+	ref,
+	update,
+	connectDatabaseEmulator,
+} from "firebase/database";
+import {
+	getStorage,
+	uploadBytesResumable,
+	getDownloadURL,
+} from "firebase/storage";
+import {
+	getAuth,
+	GoogleAuthProvider,
+	onAuthStateChanged,
+	signInWithPopup,
+	signOut,
+} from "firebase/auth";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -12,13 +28,13 @@ import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signO
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyD_217B5P7p20G3IdSd5QUWPQ2opmCEo4k",
-  authDomain: "lostnfound-c4ccf.firebaseapp.com",
-  projectId: "lostnfound-c4ccf",
-  storageBucket: "lostnfound-c4ccf.appspot.com",
-  messagingSenderId: "449979642883",
-  appId: "1:449979642883:web:e79e3f497bf6eb8c918a36",
-  measurementId: "G-ZMRQTF40W3"
+	apiKey: "AIzaSyD_217B5P7p20G3IdSd5QUWPQ2opmCEo4k",
+	authDomain: "lostnfound-c4ccf.firebaseapp.com",
+	projectId: "lostnfound-c4ccf",
+	storageBucket: "lostnfound-c4ccf.appspot.com",
+	messagingSenderId: "449979642883",
+	appId: "1:449979642883:web:e79e3f497bf6eb8c918a36",
+	measurementId: "G-ZMRQTF40W3",
 };
 
 // Initialize Firebase
@@ -26,61 +42,99 @@ const firebase = initializeApp(firebaseConfig);
 const database = getDatabase(firebase);
 const storage = getStorage(firebase);
 
-export const useDbData = (path) => {
-    const [data, setData] = useState();
-    const [error, setError] = useState(null);
-  
-    useEffect(() => (
-      onValue(ref(database, path), (snapshot) => {
-       setData( snapshot.val() );
-      }, (error) => {
-        setError(error);
-      })
-    ), [ path ]);
-  
-    return [ data, error ];
-};
-  
-const makeResult = (error) => {
-    const timestamp = Date.now();
-    const message = error?.message || `Updated: ${new Date(timestamp).toLocaleString()}`;
-    return { timestamp, error, message };
-};
-  
-export const useDbUpdate = (path) => {
-    const [result, setResult] = useState();
-    const updateData = useCallback((value) => {
-        update(ref(database, path), value)
-        .then(() => setResult(makeResult()))
-        .catch((error) => setResult(makeResult(error)))
-    }, [database, path]);
+export const useStorageUpload = (file, path) => {
+	return new Promise((resolve, reject) => {
+		const storageRef = storage.ref(path);
+		const uploadTask = storageRef.put(file);
 
-    return [updateData, result];
+		// Register three observers:
+		// 1. 'state_changed' observer, called any time the state changes
+		// 2. Error observer, called on failure
+		// 3. Completion observer, called on successful completion
+		uploadTask.on(
+			"state_changed",
+			(snapshot) => {
+				// Observe state change events such as progress, pause, and resume
+				// Use snapshot to get the progress, including bytes transferred and total bytes
+			},
+			(error) => {
+				// Handle unsuccessful uploads
+				reject(error);
+			},
+			() => {
+				// Handle successful uploads on complete
+				uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+					resolve(downloadURL);
+				});
+			}
+		);
+	});
+};
+
+export const useDbData = (path) => {
+	const [data, setData] = useState();
+	const [error, setError] = useState(null);
+
+	useEffect(
+		() =>
+			onValue(
+				ref(database, path),
+				(snapshot) => {
+					setData(snapshot.val());
+				},
+				(error) => {
+					setError(error);
+				}
+			),
+		[path]
+	);
+
+	return [data, error];
+};
+
+const makeResult = (error) => {
+	const timestamp = Date.now();
+	const message =
+		error?.message || `Updated: ${new Date(timestamp).toLocaleString()}`;
+	return { timestamp, error, message };
+};
+
+export const useDbUpdate = (path) => {
+	const [result, setResult] = useState();
+	const updateData = useCallback(
+		(value) => {
+			update(ref(database, path), value)
+				.then(() => setResult(makeResult()))
+				.catch((error) => setResult(makeResult(error)));
+		},
+		[database, path]
+	);
+
+	return [updateData, result];
 };
 
 export const signInWithGoogle = () => {
-    signInWithPopup(getAuth(firebase), new GoogleAuthProvider());
-  };
-  
-  const firebaseSignOut = () => signOut(getAuth(firebase));
-  
-  export { firebaseSignOut as signOut };
-  
+	signInWithPopup(getAuth(firebase), new GoogleAuthProvider());
+};
+
+const firebaseSignOut = () => signOut(getAuth(firebase));
+
+export { firebaseSignOut as signOut };
+
 export const useAuthState = () => {
-    const [user, setUser] = useState();
-    const [isNorthwesternStudent, setIsNorthwesternStudent] = useState(false);
+	const [user, setUser] = useState();
+	const [isNorthwesternStudent, setIsNorthwesternStudent] = useState(false);
 
+	useEffect(() => {
+		const result = onAuthStateChanged(getAuth(firebase), (user) => {
+			setIsNorthwesternStudent(false);
+			setUser(user);
+			if (user.email.endsWith("northwestern.edu")) {
+				setIsNorthwesternStudent(true);
+			}
+		});
+		return result;
+	}, []);
 
-    useEffect(() => {
-        const result = onAuthStateChanged(getAuth(firebase), (user) => {
-            setIsNorthwesternStudent(false);
-            setUser(user);
-            if (user.email.endsWith("northwestern.edu")) {
-                setIsNorthwesternStudent(true);
-            }
-        });
-        return result;
-    }, []);
-
-    return [user, isNorthwesternStudent];
+	return [user, isNorthwesternStudent];
 };
