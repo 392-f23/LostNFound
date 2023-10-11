@@ -13,6 +13,7 @@ import {
 	getStorage,
 	uploadBytesResumable,
 	getDownloadURL,
+  uploadBytes,
 } from "firebase/storage";
 import {
 	getAuth,
@@ -45,7 +46,7 @@ const storage = getStorage(firebase);
 export const useStorageUpload = (file, path) => {
 	return new Promise((resolve, reject) => {
 		const storageRef = storage.ref(path);
-		const uploadTask = storageRef.put(file);
+		const uploadTask = uploadBytes(storageRef, file);
 
 		// Register three observers:
 		// 1. 'state_changed' observer, called any time the state changes
