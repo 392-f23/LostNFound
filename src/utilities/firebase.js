@@ -14,7 +14,7 @@ import {
 	uploadBytesResumable,
 	getDownloadURL,
 	ref as sRef,
-  uploadBytes,
+	uploadBytes,
 } from "firebase/storage";
 import {
 	getAuth,
@@ -68,7 +68,9 @@ export const useStorageUpload = (file, path) => {
 				// uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
 				// 	resolve(downloadURL);
 				// });
-				getDownloadURL(uploadTask.snapshot.ref).then( (url) => resolve(url));
+				getDownloadURL(uploadTask.snapshot.ref).then((url) =>
+					resolve(url)
+				);
 			}
 		);
 	});
@@ -132,6 +134,7 @@ export const useAuthState = () => {
 		const result = onAuthStateChanged(getAuth(firebase), (user) => {
 			setIsNorthwesternStudent(false);
 			setUser(user);
+			console.log(user);
 			if (user.email.endsWith("northwestern.edu")) {
 				setIsNorthwesternStudent(true);
 			}
