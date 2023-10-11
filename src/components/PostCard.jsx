@@ -24,10 +24,14 @@ const PostCard = ({ post }) => {
       </div>
 
       <div>
-        {/* Image going to go here */}
+        <img className="w-100 h-25" src={post.image}></img>
       </div>
 
-      <button disabled={!isNorthwesternEmail} className="button" onClick={toggleModal}>
+      <button
+        disabled={!isNorthwesternEmail}
+        className="button"
+        onClick={toggleModal}
+      >
         More Information
       </button>
 

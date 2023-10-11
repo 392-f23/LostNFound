@@ -68,7 +68,7 @@ export const useStorageUpload = (file, path) => {
 				// uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
 				// 	resolve(downloadURL);
 				// });
-				getDownloadURL(uploadTask.snapshot.ref).then( (url) => console.log(url));
+				getDownloadURL(uploadTask.snapshot.ref).then( (url) => resolve(url));
 			}
 		);
 	});
