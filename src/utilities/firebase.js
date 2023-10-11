@@ -5,7 +5,7 @@ import { getAnalytics } from "firebase/analytics";
 import {
 	getDatabase,
 	onValue,
-	ref,
+	ref as dbRef,
 	update,
 	connectDatabaseEmulator,
 } from "firebase/database";
@@ -13,6 +13,7 @@ import {
 	getStorage,
 	uploadBytesResumable,
 	getDownloadURL,
+	ref as sRef,
   uploadBytes,
 } from "firebase/storage";
 import {
@@ -45,8 +46,8 @@ const storage = getStorage(firebase);
 
 export const useStorageUpload = (file, path) => {
 	return new Promise((resolve, reject) => {
-		const storageRef = storage.ref(path);
-		const uploadTask = uploadBytes(storageRef, file);
+		const storageRef = sRef(storage, path);
+		const uploadTask = uploadBytesResumable(storageRef, file);
 
 		// Register three observers:
 		// 1. 'state_changed' observer, called any time the state changes
@@ -64,9 +65,10 @@ export const useStorageUpload = (file, path) => {
 			},
 			() => {
 				// Handle successful uploads on complete
-				uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-					resolve(downloadURL);
-				});
+				// uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+				// 	resolve(downloadURL);
+				// });
+				getDownloadURL(uploadTask.snapshot.ref).then( (url) => console.log(url));
 			}
 		);
 	});
@@ -79,7 +81,7 @@ export const useDbData = (path) => {
 	useEffect(
 		() =>
 			onValue(
-				ref(database, path),
+				dbRef(database, path),
 				(snapshot) => {
 					setData(snapshot.val());
 				},
@@ -104,7 +106,7 @@ export const useDbUpdate = (path) => {
 	const [result, setResult] = useState();
 	const updateData = useCallback(
 		(value) => {
-			update(ref(database, path), value)
+			update(dbRef(database, path), value)
 				.then(() => setResult(makeResult()))
 				.catch((error) => setResult(makeResult(error)));
 		},
