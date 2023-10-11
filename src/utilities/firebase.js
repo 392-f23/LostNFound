@@ -41,8 +41,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig);
-const database = getDatabase(firebase);
+export const database = getDatabase(firebase);
 const storage = getStorage(firebase);
+export const auth = getAuth(firebase);
 
 export const useStorageUpload = (file, path) => {
 	return new Promise((resolve, reject) => {
@@ -134,7 +135,6 @@ export const useAuthState = () => {
 		const result = onAuthStateChanged(getAuth(firebase), (user) => {
 			setIsNorthwesternStudent(false);
 			setUser(user);
-			console.log(user);
 			if (user.email.endsWith("northwestern.edu")) {
 				setIsNorthwesternStudent(true);
 			}

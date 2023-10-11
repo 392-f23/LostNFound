@@ -8,13 +8,15 @@ import PostPage from "./pages/PostPage";
 
 import { useDbData } from "./utilities/firebase";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useAuth } from "./contexts/AuthContext";
 
 const App = () => {
+  const {user} = useAuth();
   const [data, error] = useDbData("/");
   if (error) return <h1>Error loading data</h1>;
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
-  console.log("data", data);
+  // console.log("user", user);
 
   return (
     <div className="main-app">
