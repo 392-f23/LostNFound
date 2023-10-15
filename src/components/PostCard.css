@@ -1,4 +1,5 @@
 .post-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 250px;
@@ -53,4 +54,12 @@
 width: 100%; 
 height: 100%; 
 object-fit: cover; 
+}
+
+.optionsButton {
+    background-color: transparent;
+    position: absolute;
+    border: none;
+    top: 1rem;
+    right: 1rem;
 }
