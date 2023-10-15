@@ -1,5 +1,6 @@
 import React from "react";
 import { signInWithGoogle, signOut, useAuthState } from "../utilities/firebase";
+import { Outlet, NavLink } from "react-router-dom";
 
 const SignInButton = () => (
   <button
@@ -16,9 +17,17 @@ const SignOutButton = () => (
   </button>
 );
 
+const ProfileButton = () => {
+  return (
+    <NavLink to="profilepage" className="fl-button">
+      <i className="bi bi-person-circle"></i>
+    </NavLink>
+  );
+};
+
 const AuthButton = () => {
   const [user, isNorthwesternStudent] = useAuthState();
-  return user ? <SignOutButton /> : <SignInButton />;
+  return user ? <ProfileButton /> : <SignInButton />;
 };
 
 export default AuthButton;
