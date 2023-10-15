@@ -23,8 +23,8 @@ const PostCard = ({ post }) => {
         <div className="name">By: {post.name}</div>
       </div>
 
-      <div>
-        <img className="w-100 h-25" src={post.image}></img>
+      <div className="post-image">
+        <img src={post.image} alt={post.title} />
       </div>
 
       <button

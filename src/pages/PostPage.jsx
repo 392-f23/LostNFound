@@ -83,7 +83,7 @@ const PostPage = () => {
         description: formData.description,
         contactInfo: formData.contactInfo,
         location: formData.location,
-        image: url,
+        image: imageUrl,
         lostOrFound: "lost",
       };
       console.log(input);
