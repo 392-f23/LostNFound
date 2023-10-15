@@ -4,7 +4,8 @@ import { objectToArray } from "../utilities/helpers";
 import PostCard from "../components/PostCard";
 
 const LostPage = ({ posts }) => {
-  const formattedPosts = objectToArray(posts);
+  let formattedPosts = objectToArray(posts);
+  formattedPosts = formattedPosts.filter((post) => !post.hidden);
 
   const [sortOption, setSortOption] = useState("newest");
   const [sortedPosts, setSortedPosts] = useState([]);

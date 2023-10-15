@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 const PostPage = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
 
   const [formData, setFormData] = useState({
     id: "",
@@ -13,6 +13,7 @@ const PostPage = () => {
     contactInfo: "", // mandatory,
     location: "", // mandatory
     image: "", // optional
+    hidden: false,
     lostOrFound: "lost",
   });
 
@@ -74,13 +75,14 @@ const PostPage = () => {
 
     const posts = {
       id: post_id,
-        name: formData.name,
-        description: formData.description,
-        contactInfo: formData.contactInfo,
-        location: formData.location,
-        image: imageUrl,
-        uid: user.uid
-    }
+      name: formData.name,
+      description: formData.description,
+      contactInfo: formData.contactInfo,
+      location: formData.location,
+      image: imageUrl,
+      hidden: false,
+      uid: user.uid,
+    };
 
     if (formData.lostOrFound === "found") {
       updateFoundPosts({
