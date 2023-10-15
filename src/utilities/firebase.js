@@ -120,7 +120,21 @@ export const useDbUpdate = (path) => {
 };
 
 export const signInWithGoogle = () => {
-	signInWithPopup(getAuth(firebase), new GoogleAuthProvider());
+	signInWithPopup(getAuth(firebase), new GoogleAuthProvider())
+    .then((userCredential) => {
+        const isEqual = userCredential.user.metadata.creationTime === userCredential.user.metadata.lastSignInTime;
+        if (isEqual) {
+            const value = {
+                uid: userCredential.user.uid,
+                email: userCredential.user.email,
+                name: userCredential.user.displayName
+            }
+            const path = `users/${userCredential.user.uid}`
+            update(dbRef(database, path), value)
+				.then()
+				.catch((error) => console.log(error));
+        }
+    })
 };
 
 const firebaseSignOut = () => signOut(getAuth(firebase));
