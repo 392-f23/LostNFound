@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useDbUpdate, useStorageUpload } from "../utilities/firebase";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const PostPage = () => {
+  const {user} = useAuth();
+
   const [formData, setFormData] = useState({
     id: "",
     name: "", // mandatory
@@ -12,14 +15,18 @@ const PostPage = () => {
     image: "", // optional
     lostOrFound: "lost",
   });
+
   const [selectedOption, setSelectedOption] = useState("lost");
   let post_id = Date.now();
+
   const [updateFoundPosts, resultFoundPosts] = useDbUpdate(
     `/foundPosts/${post_id}`
   );
+
   const [updateLostPosts, resultLostPosts] = useDbUpdate(
     `/lostPosts/${post_id}`
   );
+
   let navigate = useNavigate();
 
   const handleOptionChange = (e) => {
@@ -65,25 +72,25 @@ const PostPage = () => {
         });
     }
 
-    if (formData.lostOrFound === "found") {
-      updateFoundPosts({
-        id: post_id,
+    const posts = {
+      id: post_id,
         name: formData.name,
         description: formData.description,
         contactInfo: formData.contactInfo,
         location: formData.location,
         image: imageUrl,
+        uid: user.uid
+    }
+
+    if (formData.lostOrFound === "found") {
+      updateFoundPosts({
+        ...posts,
         lostOrFound: "found",
       });
       navigate("/");
     } else if (formData.lostOrFound === "lost") {
       const input = {
-        id: post_id,
-        name: formData.name,
-        description: formData.description,
-        contactInfo: formData.contactInfo,
-        location: formData.location,
-        image: imageUrl,
+        ...posts,
         lostOrFound: "lost",
       };
       console.log(input);

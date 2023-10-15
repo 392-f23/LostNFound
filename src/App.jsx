@@ -30,7 +30,7 @@ const App = () => {
               element={<LostPage posts={data.lostPosts} />}
             />
             <Route path="postpage" element={<PostPage />} />
-            <Route path="profilepage" element={<ProfilePage />} />
+            <Route path="profilepage" element={<ProfilePage lostPosts={data.lostPosts} foundPosts={data.foundPosts}/>} />
           </Route>
         </Routes>
       </BrowserRouter>
