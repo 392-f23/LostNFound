@@ -6,7 +6,13 @@
     align-items: center;
     margin: 0;
     margin-bottom: 80px;
+}
 
+.lost-page-header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 1rem;
 }
 
 .card-container {

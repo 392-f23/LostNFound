@@ -1,4 +1,5 @@
 import React from "react";
+import "./SearchSort.css";
 
 const SearchSort = ({
 	handleSearchChange,
@@ -13,16 +14,14 @@ const SearchSort = ({
 				<option value='oldest'>Oldest</option>
 			</select>
 			<div className='input-group'>
-				<div className='form-outline'>
-					<input
-						type='search'
-						id='form1'
-						className='form-control'
-						placeholder='Search...'
-						value={searchQuery}
-						onChange={handleSearchChange}
-					/>
-				</div>
+				<input
+					type='search'
+					id='form1'
+					className='form-control'
+					placeholder='Search...'
+					value={searchQuery}
+					onChange={handleSearchChange}
+				/>
 			</div>
 		</div>
 	);
