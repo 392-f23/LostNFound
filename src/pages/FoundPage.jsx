@@ -38,28 +38,28 @@ const FoundPage = ({ posts }) => {
 	};
 
 	return (
-		<div>
-			<div className='lost-page container'>
-				<h2>Found Items</h2>
-				<SearchSort
-					handleSearchChange={handleSearchChange}
-					handleSortChange={handleSortChange}
-					searchQuery={searchQuery}
-					sortOption={sortOption}></SearchSort>
-				<div className='card-container'>
-					{sortedPosts.map((post) => (
-						// <div className="card" key={post.id}>
-						//   {/* <img src={card.imageUrl} alt={card.title} /> */}
-						//   <h2>{post.description}</h2>
-						//   <h4>Found in {post.location}</h4>
-						//   <p>By: {post.name}</p>
-						//   <button>Click here for more information</button>
-						// </div>
-						<PostCard key={post.id} post={post} />
-					))}
-				</div>
+		// <div>
+		<div className='lost-page container'>
+			<h2>Found Items</h2>
+			<SearchSort
+				handleSearchChange={handleSearchChange}
+				handleSortChange={handleSortChange}
+				searchQuery={searchQuery}
+				sortOption={sortOption}></SearchSort>
+			<div className='card-container'>
+				{sortedPosts.map((post) => (
+					// <div className="card" key={post.id}>
+					//   {/* <img src={card.imageUrl} alt={card.title} /> */}
+					//   <h2>{post.description}</h2>
+					//   <h4>Found in {post.location}</h4>
+					//   <p>By: {post.name}</p>
+					//   <button>Click here for more information</button>
+					// </div>
+					<PostCard key={post.id} post={post} />
+				))}
 			</div>
 		</div>
+		// </div>
 	);
 };
 
