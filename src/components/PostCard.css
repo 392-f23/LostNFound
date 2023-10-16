@@ -2,7 +2,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 250px;
+    width: 100%;
+    max-width: 250px;
     height: auto; /* Change the height to "auto" to allow it to expand based on content */
     background-color: #f9f9f9;
     border: 1px solid #e0e0e0;
