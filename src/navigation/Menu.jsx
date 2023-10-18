@@ -9,16 +9,13 @@ const Menu = () => {
 	return (
 		<div className='main-layout'>
 			<header className='header'>
-				<nav className='w-100'>
-					<h1 className='mx-auto' id='appName' data-cy='appName'>
-						<span className='vertical-text'>Lost</span>
-						<span className='nu-logo'>
-							<img src='/nu-logo.jpg' alt='N' />
-						</span>
-						<span className='vertical-text'>Found</span>
-						<AuthButton />
-						{/* Put login component here */}
-					</h1>
+				<nav className='w-100  d-flex justify-content-between'>
+					<img
+						className='text-center flex-grow-1 fs-1'
+						src='src\assests\Group_6.svg'
+						alt='N'
+					/>
+					<AuthButton />
 				</nav>
 			</header>
 			<main className='main-part'>
