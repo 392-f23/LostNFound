@@ -5,6 +5,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useDbUpdate } from "../utilities/firebase";
+import Modal from "./Modal";
 
 const ProfileCard = ({ post }) => {
   const [updateData, result] = useDbUpdate(
