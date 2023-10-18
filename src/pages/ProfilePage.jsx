@@ -30,11 +30,19 @@ const ProfilePage = ({ lostPosts, foundPosts }) => {
   console.log("value", value);
   return (
     <div>
-      <div>
-        Welcome <b>{name}!</b>
+      <div className="d-flex mx-3 mt-3 align-items-center">
+        <div>
+          Welcome <b>{name}!</b>
+        </div>
+        <button
+          className="ms-auto btn btn-dark sign-in-button"
+          onClick={handleSignOut}
+        >
+          Sign out
+        </button>
       </div>
       <br />
-      <div className="card-container">
+      <div className="card-container fs-1 mb-5">
         {formattedLostPost.length > 0 ? <b>Lost posts</b> : null}
         {formattedLostPost.length > 0 ? (
           formattedLostPost.map((post) => (
@@ -43,7 +51,6 @@ const ProfilePage = ({ lostPosts, foundPosts }) => {
         ) : (
           <div>Items you post as lost will appear here</div>
         )}
-        <br />
         {formattedFoundPost.length > 0 ? <b>Found posts</b> : null}
         {formattedFoundPost.length > 0 ? (
           formattedFoundPost.map((post) => (
@@ -52,13 +59,8 @@ const ProfilePage = ({ lostPosts, foundPosts }) => {
         ) : (
           <div>Items you post as found will appear here</div>
         )}
-        <button
-          className="ms-auto btn btn-dark sign-in-button"
-          onClick={handleSignOut}
-        >
-          Sign out
-        </button>
       </div>
+      <br />
     </div>
   );
 };
