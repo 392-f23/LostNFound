@@ -47,6 +47,8 @@ const FoundPage = ({ posts }) => {
 					searchQuery={searchQuery}
 					sortOption={sortOption}></SearchSort>
 			</div>
+
+
 			<div className='card-container'>
 				{sortedPosts.map((post) => (
 					// <div className="card" key={post.id}>
@@ -60,6 +62,7 @@ const FoundPage = ({ posts }) => {
 				))}
 			</div>
 		</div>
+		// </div>
 	);
 };
 
