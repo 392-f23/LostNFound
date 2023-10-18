@@ -38,14 +38,17 @@ const FoundPage = ({ posts }) => {
 	};
 
 	return (
-		// <div>
-		<div className='lost-page container'>
-			<h2>Found Items</h2>
-			<SearchSort
-				handleSearchChange={handleSearchChange}
-				handleSortChange={handleSortChange}
-				searchQuery={searchQuery}
-				sortOption={sortOption}></SearchSort>
+		<div className='lost-page'>
+			<div className='lost-page-header'>
+				<h2>Found Items</h2>
+				<SearchSort
+					handleSearchChange={handleSearchChange}
+					handleSortChange={handleSortChange}
+					searchQuery={searchQuery}
+					sortOption={sortOption}></SearchSort>
+			</div>
+
+
 			<div className='card-container'>
 				{sortedPosts.map((post) => (
 					// <div className="card" key={post.id}>

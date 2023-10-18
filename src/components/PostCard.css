@@ -2,7 +2,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 250px;
+    width: 100%;
+    max-width: 250px;
     height: auto; /* Change the height to "auto" to allow it to expand based on content */
     background-color: #f9f9f9;
     border: 1px solid #e0e0e0;
@@ -37,11 +38,14 @@
 .button {
     width: 150px;
     font-size: 1.0rem;
-    color: #333;
+    color: white;
     margin-top: auto;
     margin-bottom: 10px;
     margin-left: auto;
     margin-right: auto;
+    border-radius: 150px;
+    background-color: rgb(214, 172, 235);
+    border: none;
 }
 
 .post-image {
@@ -51,9 +55,9 @@
   }
   
 .post-image img {
-width: 100%; 
-height: 100%; 
-object-fit: cover; 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
 }
 
 .optionsButton {
