@@ -9,8 +9,9 @@ const Menu = () => {
 	return (
 		<div className='main-layout'>
 			<header className='header'>
-				<nav className='w-100  d-flex justify-content-between'>
+				<nav className='w-100 d-flex justify-content-between align-items-center'>
 					<img
+						style={{ maxWidth: '80px' }}
 						className='text-center flex-grow-1 fs-1'
 						src='src\assests\Group_6.svg'
 						alt='N'

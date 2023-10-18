@@ -19,7 +19,7 @@ const SignOutButton = () => (
 
 const ProfileButton = () => {
   return (
-    <NavLink to="profilepage" className="fl-button">
+    <NavLink to="profilepage" className="fl-button fs-1">
       <i className="bi bi-person-circle"></i>
     </NavLink>
   );
