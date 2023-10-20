@@ -17,7 +17,7 @@ const ProfileCard = ({ post }) => {
     setShowModal(!showModal);
   };
 
-  const options = ["Edit", "Delete"];
+  const options = ["Delete"];
 
   const ITEM_HEIGHT = 48;
 
