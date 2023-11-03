@@ -110,7 +110,7 @@ const mockData = {
 };
 
 describe("Search tests", () => {
-  it("Inputting Airpods into the search bar generates posts with that descripton", () => {
+  it("Inputting Airpods into the search bar generates posts with that descripton, does not generate anything else", () => {
     // these values can be null because this test does not test database functionality
     useDbData.mockReturnValue([mockData, null]);
     useDbUpdate.mockReturnValue([null, null]);
@@ -125,6 +125,10 @@ describe("Search tests", () => {
     const posts = screen.queryAllByText("Airpods");
 
     expect(posts.length).toBe(1);
+
+    const posts2 = screen.queryAllByText("Books");
+
+    expect(posts2.length).toBe(0);
   });
 
   it("Inputting Books into the search bar generates posts with that descripton, and does not make Airpods appear", async () => {
@@ -141,7 +145,7 @@ describe("Search tests", () => {
     fireEvent.change(searchInput, { target: { value: "Books" } });
 
     const posts = screen.queryAllByText("Airpods");
-    expect(posts.length).toBe(0); // Two posts match the search query
+    expect(posts.length).toBe(0);
 
     const posts2 = screen.queryAllByText("Books");
     expect(posts2.length).toBe(1);

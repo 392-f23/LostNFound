@@ -83,8 +83,6 @@ describe("basic tests", () => {
     fireEvent.click(submitButton);
 
     expect(submitButton.disabled).toBe(true);
-
-    // screen.queryByText(/Post Lost or Found Item/);
   });
 
   it("Submit button should work when all required inputs are there, but image is not since it's optional", () => {
@@ -116,7 +114,5 @@ describe("basic tests", () => {
     fireEvent.click(submitButton);
 
     expect(submitButton.disabled).toBe(false);
-
-    // screen.queryByText(/Post Lost or Found Item/);
   });
 });
