@@ -58,7 +58,7 @@ const mockData = {
 };
 
 describe("basic tests", () => {
-  test("Submit button should not work when not all required inputs are filled out - no location", () => {
+  it("Submit button should not work when not all required inputs are filled out - no location", () => {
     // these values can be null because this test does not test database functionality
     useDbData.mockReturnValue([mockData, null]);
     useDbUpdate.mockReturnValue([null, null]);
@@ -87,7 +87,7 @@ describe("basic tests", () => {
     // screen.queryByText(/Post Lost or Found Item/);
   });
 
-  test("Submit button should work when all required inputs are there, but image is not since it's optional", () => {
+  it("Submit button should work when all required inputs are there, but image is not since it's optional", () => {
     // these values can be null because this test does not test database functionality
     useDbData.mockReturnValue([mockData, null]);
     useDbUpdate.mockReturnValue([null, null]);
