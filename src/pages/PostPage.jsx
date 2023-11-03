@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDbUpdate, useStorageUpload } from "../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
@@ -20,6 +20,8 @@ const PostPage = () => {
   const [selectedOption, setSelectedOption] = useState("lost");
   let post_id = Date.now();
 
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+
   const [updateFoundPosts, resultFoundPosts] = useDbUpdate(
     `/foundPosts/${post_id}`
   );
@@ -28,7 +30,10 @@ const PostPage = () => {
     `/lostPosts/${post_id}`
   );
 
-  let navigate = useNavigate();
+  let navigate;
+  if (user) {
+    navigate = useNavigate();
+  }
 
   const handleOptionChange = (e) => {
     setSelectedOption(e.target.value);
@@ -56,8 +61,15 @@ const PostPage = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  useEffect(() => {
+    const { name, description, contactInfo, location } = formData;
+    const isFormValid = name && description && contactInfo && location;
+    setIsSubmitDisabled(!isFormValid);
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("In submit");
     console.log("Form data submitted:", formData);
     const path = formData.image[0];
     const file = formData.image[1];
@@ -73,31 +85,34 @@ const PostPage = () => {
         });
     }
 
-    const posts = {
-      id: post_id,
-      name: formData.name,
-      description: formData.description,
-      contactInfo: formData.contactInfo,
-      location: formData.location,
-      image: imageUrl,
-      hidden: false,
-      uid: user.uid,
-    };
-
-    if (formData.lostOrFound === "found") {
-      updateFoundPosts({
-        ...posts,
-        lostOrFound: "found",
-      });
-      navigate("/");
-    } else if (formData.lostOrFound === "lost") {
-      const input = {
-        ...posts,
-        lostOrFound: "lost",
+    // only go through this process if a user exists (testing is going on)
+    if (user) {
+      const posts = {
+        id: post_id,
+        name: formData.name,
+        description: formData.description,
+        contactInfo: formData.contactInfo,
+        location: formData.location,
+        image: imageUrl,
+        hidden: false,
+        uid: user.uid,
       };
-      console.log(input);
-      updateLostPosts(input);
-      navigate("/lostpage");
+
+      if (formData.lostOrFound === "found") {
+        updateFoundPosts({
+          ...posts,
+          lostOrFound: "found",
+        });
+        navigate("/");
+      } else if (formData.lostOrFound === "lost") {
+        const input = {
+          ...posts,
+          lostOrFound: "lost",
+        };
+        console.log(input);
+        updateLostPosts(input);
+        navigate("/lostpage");
+      }
     }
   };
 
@@ -191,7 +206,11 @@ const PostPage = () => {
           </div>
         </div>
         <div className="form-group">
-          <button type="submit" className="btn btn-primary my-2">
+          <button
+            type="submit"
+            className="btn btn-primary my-2"
+            disabled={isSubmitDisabled}
+          >
             Submit
           </button>
         </div>
