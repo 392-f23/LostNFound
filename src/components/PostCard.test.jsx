@@ -31,15 +31,15 @@ describe("PostCard", () => {
 		render(<PostCard post={mockDataImage} />);
 
 		// Assert that the image tag is rendered
-		const imageElement = screen.getByAltText("Optional Image");
-		expect(imageElement).toBeInTheDocument();
+		const imageElement = screen.getByAltText(mockDataImage.description);
+		expect(imageElement).not.toBeNull();
 	});
 
 	it("does not render image tag when imageUrl is not provided", () => {
 		render(<PostCard post={mockDataNoImage} />);
 
 		// Assert that the image tag is not rendered
-		const imageElement = screen.queryByAltText("Optional Image");
+		const imageElement = screen.queryByAltText(mockDataNoImage.description);
 		expect(imageElement).toBeNull();
 	});
 });
