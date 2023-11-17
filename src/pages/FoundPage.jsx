@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./FoundPage.css";
 import { objectToArray } from "../utilities/helpers";
 import PostCard from "../components/PostCard";
+// import PostCardAlternate from "../components/PostCard-chatgpt";
 import SearchSort from "../components/SearchSort";
 
 const FoundPage = ({ posts }) => {
@@ -58,6 +59,7 @@ const FoundPage = ({ posts }) => {
           //   <button>Click here for more information</button>
           // </div>
           <PostCard key={post.id} post={post} />
+          //   <PostCardAlternate key={post.id} post={post} />
         ))}
       </div>
     </div>
