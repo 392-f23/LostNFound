@@ -23,9 +23,11 @@ const PostCard = ({ post }) => {
 				<div className='name'>By: {post.name}</div>
 			</div>
 
-			{post.image != "" : (<div className='post-image'>
-				<img src={post.image} alt={post.description} />
-			</div>)}
+			{post.image != "" ? (
+				<div className='post-image'>
+					<img src={post.image} alt={post.description} />
+				</div>
+			) : null}
 
 			<button
 				disabled={!isNorthwesternEmail}
