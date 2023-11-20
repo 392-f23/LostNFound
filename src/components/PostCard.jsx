@@ -39,6 +39,7 @@ const PostCard = ({ post }) => {
 			{showModal && <Modal post={post} onClose={toggleModal} />}
 		</div>
 	);
+
 };
 
 export default PostCard;
